@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benchmark de Desempenho</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0d0e12;
+      color: #ffffff;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Botão para voltar à página principal */
+    .btn-voltar {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: #ffb703;
+      text-decoration: none;
+      font-weight: bold;
+      background: #161720;
+      padding: 10px 16px;
+      border-radius: 6px;
+      border: 1px solid #2d2f3e;
+    }
+
+    .btn-voltar:hover {
+      background: #252736;
+    }
+
+    /* Contentor do Benchmark */
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: #161720;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid #2d2f3e;
+      margin-top: 60px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffb703;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #a0a5b5;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      background-color: #0d0e12;
+      border: 1px solid #2d2f3e;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button.btn-calcular {
+      width: 100%;
+      padding: 14px;
+      background-color: #ffb703;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .resultados {
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .card-jogo {
+      background: #0d0e12;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #2d2f3e;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .fps-valor {
+      color: #00e676;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BOTÃO DE VOLTAR -->
+  <a href="Site de Venda de Chaves Digitais de Jogos - Copia.html" class="btn-voltar">← Voltar ao Início</a>
+
+  <!-- ÁREA DO BENCHMARK -->
+  <div class="container">
+    <h1>Simulador de Desempenho</h1>
+
+    <div class="form-group">
+      <label for="cpu">Processador (CPU):</label>
+      <select id="cpu">
+        <option value="ryzen_5_5600">AMD Ryzen 5 5600</option>
+        <option value="i5_12400f">Intel Core i5-12400F</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="gpu">Placa de Vídeo (GPU):</label>
+      <select id="gpu">
+        <option value="rtx_3060">NVIDIA RTX 3060 12GB</option>
+        <option value="rx_6600">AMD Radeon RX 6600 8GB</option>
+      </select>
+    </div>
+
+    <button class="btn-calcular" onclick="calcularBenchmark()">Calcular FPS</button>
+
+    <div class="resultados" id="resultados"></div>
+  </div>
+
+  <script>
+    const dadosJogos = {
+      "rtx_3060": {
+        "ryzen_5_5600": { "Cyberpunk 2077": 65, "CS2": 240, "GTA V": 110 },
+        "i5_12400f": { "Cyberpunk 2077": 68, "CS2": 250, "GTA V": 115 }
+      },
+      "rx_6600": {
+        "ryzen_5_5600": { "Cyberpunk 2077": 58, "CS2": 210, "GTA V": 100 },
+        "i5_12400f": { "Cyberpunk 2077": 60, "CS2": 220, "GTA V": 105 }
+      }
+    };
+
+    function calcularBenchmark() {
+      const cpu = document.getElementById("cpu").value;
+      const gpu = document.getElementById("gpu").value;
+      const resultadosDiv = document.getElementById("resultados");
+
+      const jogos = dadosJogos[gpu]?.[cpu];
+
+      if (jogos) {
+        let html = '';
+        for (const [jogo, fps] of Object.entries(jogos)) {
+          html += `
+            <div class="card-jogo">
+              <span>${jogo}</span>
+              <span class="fps-valor">~${fps} FPS</span>
+            </div>
+          `;
+        }
+        resultadosDiv.innerHTML = html;
+      }
+    }
+
+    calcularBenchmark();
+  </script>
+</body>
+</html>

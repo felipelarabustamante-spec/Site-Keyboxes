@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Boxes</title>
+    <style>
+
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0c0b0b;
+      color: #ffffff;
+      padding: 20px;
+    }
+
+    /* --- BOTÃO HAMBÚRGUER --- */
+    .btn-menu {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: #0d0d0e;
+      border: 1px solid #111010;
+      color: #fff;
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-menu:hover {
+      background: #060607;
+    }
+
+    .btn-menu span {
+      width: 22px;
+      height: 2px;
+      background-color: #ffffff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Animação do botão ao abrir (transforma em X) */
+    .btn-menu.aberto span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .btn-menu.aberto span:nth-child(2) {
+      opacity: 0;
+    }
+    .btn-menu.aberto span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* --- SIDEBAR (MENU LATERAL) --- */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px; /* Oculto fora do ecrã */
+      width: 280px;
+      height: 100%;
+      background-color: #17171b;
+      border-right: 1px solid #2a2a35;
+      z-index: 999;
+      padding: 80px 20px 20px 20px;
+      transition: left 0.3s ease;
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .sidebar.aberto {
+      left: 0; /* Desliza para dentro da tela */
+    }
+
+    .sidebar h2 {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: #ffb703;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul li a {
+      color: #cccccc;
+      text-decoration: none;
+      font-size: 1rem;
+      display: block;
+      padding: 10px;
+      border-radius: 6px;
+      transition: background 0.2s, padding-left 0.2s;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #2a2a35;
+      color: #ffffff;
+      padding-left: 15px;
+    }
+
+    /* --- MÁSCARA ESCURA DE FUNDO --- */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .overlay.aberto {
+      opacity: 1;
+      visibility: visible;
+    }
+  
+    /* --- Fundo da página --- */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #120f14;
+            color: #fdfdfd;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: lch(66.2% 31.56 313.75);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #a229b3;
+        }
+
+        h1 {
+            margin: 0;
+            color: #8257e5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card-jogo {
+            background-color: #2c2c36;
+            border-radius: 8px;
+            width: 250px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(31, 29, 29, 0.3);
+        }
+
+        .card-jogo img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .preco {
+            font-size: 1.2rem;
+            color: #00e676;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .btn-comprar {
+            background-color: #f5c338;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .btn-comprar:hover {
+            background-color: #f5e830;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BOTÃO DE ABRIR/FECHAR -->
+  <button class="btn-menu" id="btnMenu" onclick="alternarMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- MÁSCARA PARA FECHAR AO CLICAR FORA -->
+  <div class="overlay" id="overlay" onclick="alternarMenu()"></div>
+
+  <!-- A SUA SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <h2>Menu Principal</h2>
+    <ul>
+      <li><a href="Site de Venda de Chaves Digitais de Jogos - Copia.html">Início</a></li>
+      <li><a href="#">Sobre</a></li>
+      <li><a href="benchmark.html">Benchmark</a></li>
+      <li><a href="#">Contacto</a></li>
+    </ul>
+
+    <h2>Outros Links</h2>
+    <ul>
+      <li><a href="#">Perfil</a></li>
+      <li><a href="#">Definições</a></li>
+    </ul>
+  </nav>
+
+  <script>
+    function alternarMenu() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      const btnMenu = document.getElementById('btnMenu');
+
+      // Adiciona ou remove a classe "aberto"
+      sidebar.classList.toggle('aberto');
+      overlay.classList.toggle('aberto');
+      btnMenu.classList.toggle('aberto');
+    }
+  </script>
+
+    <header>
+        <img src ="KeyBoxes.PNG.png" alt="Logo Keyboxes" width="200">
+        <p style="color: rgb(5, 3, 3);">Novidades!! Implementamos Bundles!!</p>
+    </header>
+
+    <main class="container">
+            
+        <div class="card-jogo">
+            <img src="https://images7.alphacoders.com/901/thumb-1920-901149.png" alt="Capa do Jogo A">
+            <h3>Celeste</h3>
+            <p class="preco">R$ 29,90</p>
+            <button class="btn-comprar">Comprar Chave</button>
+        </div>
+  
+        <div class="card-jogo">
+            <img src="https://assets-prd.ignimgs.com/2021/12/21/binding-of-isaac-rebirth-button-fin-1640047175588.jpg" alt="Capa do Jogo B">
+            <h3>The Binding of Isaac: Rebirth</h3>
+            <p class="preco">R$ 15,90</p>
+            <button class="btn-comprar">Comprar Chave</button>
+        </div>
+
+        <div class="card-jogo">
+            <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/12/mixcollage-08-dec-2024-02-11-pm-2997.jpg" alt="Capa do Jogo C">
+            <h3>Stardew Valley</h3>
+            <p class="preco"> R$ 12,59</p>
+            <button class="btn-comprar">Comprar Chave</button>
+        </div>
+    </main>
+
+</body>
+</html>
